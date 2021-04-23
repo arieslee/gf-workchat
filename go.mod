@@ -1,5 +1,5 @@
 module gf_workchat
 
-require (
-	github.com/gogf/gf latest
-)
+go 1.15
+
+require github.com/gogf/gf v1.15.6 // indirect
