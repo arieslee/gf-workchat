@@ -40,7 +40,7 @@ type ConvertResponse struct {
 }
 func (u *User) ConvertUserIdToOpenId(openId string) (*ConvertResponse, error) {
 	accessToken := u.GetToken()
-	apiURL := fmt.Sprintf(convertOpenIdToUserIdURL, accessToken)
+	apiURL := fmt.Sprintf(convertUserIdToOpenIdURL, accessToken)
 	response := helper.Post(apiURL, g.Map{
 		"openid":openId,
 	})
@@ -80,7 +80,6 @@ func (u *User) ConvertOpenIdToUserId(openId string) (*ConvertResponse, error) {
 	}
 	return result, nil
 }
-
 func (u *User)GetUserInfo(userId string) (*internal.UserInfo, error) {
 	accessToken := u.GetToken()
 	apiURL := fmt.Sprintf(getUserInfoURL, accessToken, userId)

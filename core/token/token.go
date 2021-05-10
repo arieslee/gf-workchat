@@ -47,8 +47,8 @@ func (t *Token) GetToken() (*TokenResponse, error) {
 	}
 	err := gjson.DecodeTo(tokenStr, &result)
 	if err != nil {
-		glog.Line().Fatalf("GetToken缓存内容解析失败，error : %v", err)
-		return nil, errors.New(fmt.Sprintf("GetToken缓存内容解析失败，error : %v", err))
+		glog.Line().Debugf("GetToken缓存内容解析失败，error : %v", err)
+		return nil, fmt.Errorf("GetToken缓存内容解析失败，error : %v", err)
 	}
 	return result, nil
 }
@@ -66,11 +66,11 @@ func (t *Token) GetTokenFromServer() (*TokenResponse, error) {
 	err := gjson.DecodeTo(response, &result)
 	if err != nil {
 		glog.Line().Debugf("GetTokenFromServer报文解析失败，error : %v", err)
-		return nil, errors.New(fmt.Sprintf("GetTokenFromServer报文解析失败，error : %v", err))
+		return nil,fmt.Errorf("GetTokenFromServer报文解析失败，error : %v", err)
 	}
 	if result.ErrCode != 0 {
 		glog.Line().Debugf("GetTokenFromServer error : %v , errmsg=%v", result.ErrCode, result.ErrMsg)
-		return nil, errors.New(fmt.Sprintf("GetTokenFromServer error : %v , errmsg=%v", result.ErrCode, result.ErrMsg))
+		return nil,fmt.Errorf("GetTokenFromServer error : %v , errmsg=%v", result.ErrCode, result.ErrMsg)
 	}
 	expire := result.ExpiresIn - 1000
 	key := fmt.Sprintf(tokenCacheKey, t.config.CropId)
@@ -97,11 +97,11 @@ func (t *Token) GetApiDomainIp() (*DomainResponse, error) {
 	err = gjson.DecodeTo(response, &result)
 	if err != nil {
 		glog.Line().Debugf("GetApiDomainIp报文解析失败，error : %v", err)
-		return nil, errors.New(fmt.Sprintf("GetApiDomainIp报文解析失败，error : %v", err))
+		return nil,fmt.Errorf("GetApiDomainIp报文解析失败，error : %v", err)
 	}
 	if result.ErrCode != 0 {
 		glog.Line().Debugf("GetApiDomainIp error : %v , errmsg=%v", result.ErrCode, result.ErrMsg)
-		return nil, errors.New(fmt.Sprintf("GetApiDomainIp error : %v , errmsg=%v", result.ErrCode, result.ErrMsg))
+		return nil,fmt.Errorf("GetApiDomainIp error : %v , errmsg=%v", result.ErrCode, result.ErrMsg)
 	}
 	return result, nil
 }
