@@ -1,4 +1,4 @@
-package gf_workchat
+package main
 
 import (
 	"gf_workchat/config"
@@ -7,17 +7,17 @@ import (
 )
 
 type WorkChat struct {
-
 }
+
 // NewWorkChat init
 func NewWorkChat() *WorkChat {
 	return &WorkChat{}
 }
 
 func (w *WorkChat) GetUser(cfg *config.Config) *user.User {
-	return user.NewUser(cfg)
+	return user.New(cfg)
 }
 
 func (w *WorkChat) GetToken(cfg *config.Config) *token.Token {
-	return token.NewToken(cfg)
+	return token.New(cfg)
 }
