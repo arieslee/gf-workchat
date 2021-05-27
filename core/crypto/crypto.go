@@ -74,7 +74,7 @@ func (c *Crypto) GetAesKey() ([]byte, error) {
 func (c *Crypto) VerifyURL(msgSignature, timestamp, nonce, echoStr string) (string, error) {
 	localSignature := c.GetSignature(c.config.Token, timestamp, nonce, echoStr)
 	if msgSignature != localSignature {
-		return "", fmt.Errorf(ErrorInvalidMsgSignature.Error()+",msgSignature = %s, localSignature=%s", msgSignature, localSignature)
+		return "", fmt.Errorf(ErrorInvalidMsgSignature.Error()+",msgSignature = %s, localSignature = %s", msgSignature, localSignature)
 	}
 	plainText, err := c.Decrypt(msgSignature, timestamp, nonce, echoStr)
 	if err != nil {
